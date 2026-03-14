@@ -13,8 +13,10 @@ import ProductGrid from "./components/ProductGrid";
 import InvestmentSection from "./components/InvestmentSection";
 import GoldExchange from "./components/GoldExchange";
 import Footer from "./components/Footer";
+import AIStylist from "./components/AIStylist";
 import ProductDetail from "./components/ProductDetail";
 import InvestmentPage from "./components/InvestmentPage";
+import AdminDashboard from "./components/AdminDashboard";
 import { motion } from "motion/react";
 
 function HomePage() {
@@ -85,7 +87,9 @@ export default function App() {
           } />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/investment" element={<InvestmentPage />} />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
+        <AIStylist />
       </div>
     </BrowserRouter>
   );

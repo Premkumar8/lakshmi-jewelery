@@ -1,11 +1,9 @@
-import { Search, ShoppingBag, User, Menu, Heart } from "lucide-react";
+import { Search, ShoppingBag, User, Menu, Heart, Globe } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-const TAMIL_LABEL = "\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD";
-
 export default function Navbar() {
-  const [lang, setLang] = useState<"EN" | "TM">("EN");
+  const [lang, setLang] = useState<'EN' | 'TM'>('EN');
 
   return (
     <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-black/5">
@@ -30,18 +28,19 @@ export default function Navbar() {
         </Link>
 
         <div className="flex items-center gap-4">
+          {/* Language Switcher */}
           <div className="hidden md:flex items-center bg-black/5 rounded-full p-1 mr-2">
-            <button
-              onClick={() => setLang("EN")}
-              className={`px-3 py-1 text-[9px] font-bold rounded-full transition-all ${lang === "EN" ? "bg-white text-black shadow-sm" : "text-black/40 hover:text-black"}`}
+            <button 
+              onClick={() => setLang('EN')}
+              className={`px-3 py-1 text-[9px] font-bold rounded-full transition-all ${lang === 'EN' ? 'bg-white text-black shadow-sm' : 'text-black/40 hover:text-black'}`}
             >
               EN
             </button>
-            <button
-              onClick={() => setLang("TM")}
-              className={`px-3 py-1 text-[9px] font-bold rounded-full transition-all ${lang === "TM" ? "bg-white text-black shadow-sm" : "text-black/40 hover:text-black"}`}
+            <button 
+              onClick={() => setLang('TM')}
+              className={`px-3 py-1 text-[9px] font-bold rounded-full transition-all ${lang === 'TM' ? 'bg-white text-black shadow-sm' : 'text-black/40 hover:text-black'}`}
             >
-              {TAMIL_LABEL}
+              தமிழ்
             </button>
           </div>
 

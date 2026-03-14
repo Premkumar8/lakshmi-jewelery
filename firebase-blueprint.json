@@ -1,0 +1,68 @@
+{
+  "entities": {
+    "Sale": {
+      "title": "Sale",
+      "description": "A record of a jewelry sale.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "customerId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "items": { "type": "array", "items": { "type": "object" } },
+        "totalAmount": { "type": "number" },
+        "date": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["completed", "pending", "cancelled"] }
+      },
+      "required": ["customerId", "totalAmount", "date"]
+    },
+    "Purchase": {
+      "title": "Purchase",
+      "description": "A record of a gold/jewelry purchase from vendors.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "vendorName": { "type": "string" },
+        "items": { "type": "array", "items": { "type": "object" } },
+        "totalAmount": { "type": "number" },
+        "date": { "type": "string", "format": "date-time" }
+      },
+      "required": ["vendorName", "totalAmount", "date"]
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "Information about a customer.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "address": { "type": "string" },
+        "totalSpent": { "type": "number" },
+        "lastPurchaseDate": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email"]
+    },
+    "Mail": {
+      "title": "Mail",
+      "description": "A record of an email sent to a customer.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "customerId": { "type": "string" },
+        "customerEmail": { "type": "string" },
+        "subject": { "type": "string" },
+        "body": { "type": "string" },
+        "sentAt": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["sent", "failed", "pending"] }
+      },
+      "required": ["customerEmail", "subject", "body"]
+    }
+  },
+  "firestore": {
+    "/sales": { "schema": "Sale", "description": "Collection of sales records." },
+    "/purchases": { "schema": "Purchase", "description": "Collection of purchase records." },
+    "/customers": { "schema": "Customer", "description": "Collection of customer profiles." },
+    "/mails": { "schema": "Mail", "description": "Collection of sent emails." }
+  }
+}

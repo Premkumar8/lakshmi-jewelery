@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { PRODUCTS } from "../constants";
 import { ArrowLeft, ShoppingBag, Heart, Share2, Shield, Truck, RotateCcw, ChevronLeft, ChevronRight } from "lucide-react";
 import Navbar from "./Navbar";
@@ -7,11 +7,9 @@ import Footer from "./Footer";
 import RatesTicker from "./RatesTicker";
 import { useState } from "react";
 
-const CURRENCY_SYMBOL = "\u20B9";
-
 export default function ProductDetail() {
   const { id } = useParams();
-  const product = PRODUCTS.find((item) => item.id === id);
+  const product = PRODUCTS.find(p => p.id === id);
   const [activeImageIdx, setActiveImageIdx] = useState(0);
 
   if (!product) {
@@ -34,7 +32,7 @@ export default function ProductDetail() {
     <div className="min-h-screen bg-[#fdfbf7]">
       <RatesTicker />
       <Navbar />
-
+      
       <main className="max-w-7xl mx-auto px-4 py-12 lg:py-24">
         <Link to="/" className="inline-flex items-center gap-2 text-[11px] uppercase tracking-widest font-bold text-black/40 hover:text-black mb-12 transition-colors group">
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
@@ -42,32 +40,34 @@ export default function ProductDetail() {
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          {/* Creative Image Gallery with Carousel */}
           <div className="flex flex-col gap-6">
             <div className="relative group">
-              <motion.div
+              <motion.div 
                 key={activeImageIdx}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
                 className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl relative"
               >
-                <img
-                  src={images[activeImageIdx]}
-                  alt={product.name}
+                <img 
+                  src={images[activeImageIdx]} 
+                  alt={product.name} 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-
+                
+                {/* Carousel Controls */}
                 {images.length > 1 && (
                   <>
-                    <button
+                    <button 
                       onClick={(e) => { e.preventDefault(); prevImage(); }}
                       className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-black hover:bg-white transition-all opacity-0 group-hover:opacity-100"
                     >
                       <ChevronLeft size={20} />
                     </button>
-                    <button
+                    <button 
                       onClick={(e) => { e.preventDefault(); nextImage(); }}
                       className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center text-black hover:bg-white transition-all opacity-0 group-hover:opacity-100"
                     >
@@ -77,7 +77,8 @@ export default function ProductDetail() {
                 )}
               </motion.div>
 
-              <motion.div
+              {/* Floating Detail Cards */}
+              <motion.div 
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5 }}
@@ -91,13 +92,14 @@ export default function ProductDetail() {
               </motion.div>
             </div>
 
+            {/* Thumbnails */}
             {images.length > 1 && (
               <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
                 {images.map((img, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveImageIdx(idx)}
-                    className={`relative w-24 aspect-square rounded-xl overflow-hidden border-2 transition-all flex-shrink-0 ${activeImageIdx === idx ? "border-amber-600" : "border-transparent opacity-60 hover:opacity-100"}`}
+                    className={`relative w-24 aspect-square rounded-xl overflow-hidden border-2 transition-all flex-shrink-0 ${activeImageIdx === idx ? 'border-amber-600' : 'border-transparent opacity-60 hover:opacity-100'}`}
                   >
                     <img src={img} alt={`${product.name} view ${idx + 1}`} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                   </button>
@@ -106,6 +108,7 @@ export default function ProductDetail() {
             )}
           </div>
 
+          {/* Product Info */}
           <div className="flex flex-col">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -118,9 +121,9 @@ export default function ProductDetail() {
               <h1 className="text-5xl md:text-7xl font-serif text-black leading-tight mb-6">
                 {product.name}
               </h1>
-
+              
               <div className="flex items-center gap-6 mb-10">
-                <span className="text-4xl font-mono font-medium">{CURRENCY_SYMBOL}{product.price.toLocaleString()}</span>
+                <span className="text-4xl font-mono font-medium">₹{product.price.toLocaleString()}</span>
                 <div className="h-8 w-[1px] bg-black/10" />
                 <div className="flex flex-col">
                   <span className="text-[10px] uppercase tracking-widest text-black/40">Weight</span>
@@ -151,6 +154,7 @@ export default function ProductDetail() {
                 </div>
               </div>
 
+              {/* Trust Badges */}
               <div className="grid grid-cols-3 gap-4 pt-12 border-t border-black/5">
                 <div className="flex flex-col items-center text-center gap-2">
                   <div className="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-600">

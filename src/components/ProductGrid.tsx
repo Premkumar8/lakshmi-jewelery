@@ -3,13 +3,11 @@ import { Heart, ShoppingBag, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { PRODUCTS } from "../constants";
 
-const CURRENCY_SYMBOL = "\u20B9";
-
 export default function ProductGrid({ title }: { title: string }) {
   return (
     <section className="py-24 bg-[#fdfbf7]">
       <div className="max-w-7xl mx-auto px-4">
-        <motion.div
+        <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -66,7 +64,7 @@ export default function ProductGrid({ title }: { title: string }) {
                   <h3 className="text-lg font-serif text-black mb-1 group-hover:text-amber-600 transition-colors">{product.name}</h3>
                 </Link>
                 <div className="flex items-center justify-between">
-                  <span className="text-lg font-mono font-medium">{CURRENCY_SYMBOL}{product.price.toLocaleString()}</span>
+                  <span className="text-lg font-mono font-medium">₹{product.price.toLocaleString()}</span>
                   <span className="text-[10px] uppercase tracking-widest text-black/40 font-bold">{product.category}</span>
                 </div>
               </div>
